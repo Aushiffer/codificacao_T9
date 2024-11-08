@@ -4,7 +4,7 @@
 #include <stdlib.h>
 
 // Número de dígitos possíveis + 1 caracter de terminação.
-#define NUM_DIG 9
+#define NUM_DIG 8
 
 // Padrões para cada dígito do teclado.
 #define PADRAO_2 "ABCabc"
