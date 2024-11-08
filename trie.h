@@ -1,10 +1,10 @@
 #ifndef __TRIE__
 #define __TRIE__
 
-#include <stdlib.h>
-
 // Número de dígitos possíveis + 1 caracter de terminação.
 #define NUM_DIG 8
+
+#include <stdlib.h>
 
 // Padrões para cada dígito do teclado.
 #define PADRAO_2 "ABCabc"
@@ -15,6 +15,9 @@
 #define PADRAO_7 "PQRSpqrs"
 #define PADRAO_8 "TUVtuv"
 #define PADRAO_9 "WXYZwxyz"
+
+// Dígitos possíveis
+#define ALFABETO "#23456789"
 
 // TAD: Trie M-ária de existência.
 typedef struct No *Trie;
