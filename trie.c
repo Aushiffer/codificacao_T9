@@ -49,7 +49,7 @@ void busca_no_rec(Trie t, char codigo[], char chave[], int d, char res[]) {
 Trie insere_no(Trie t, char chave[], int d) {
     if (!t) return cria_no(chave[d]);
 
-    if (d > 1 && chave[d] == chave[d - 1])
+    if (d > 0 && padrao(chave[d]) == padrao(chave[d - 1]))
         t->vet_ap[NUM_DIG - 1] = insere_no(t->vet_ap[NUM_DIG - 1], chave, d + 1);
     else {
         switch (padrao(chave[d])) {
