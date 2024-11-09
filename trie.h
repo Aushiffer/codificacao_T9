@@ -2,17 +2,13 @@
 #define __TRIE__
 
 // Número de dígitos possíveis.
-#define NUM_DIG 9
+#define NUM_DIG 10
 
 // Tamanho máximo da palavra.
 #define TAM_PALAVRA 4096
 
 // Alfabeto de A a Z.
 #define ALFABETO "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
-
-// Índices de padrões com quatro letras.
-#define INDICE_P 16
-#define INDICE_W 23
 
 // Dígitos possíveis
 #define DIGS_POSSIVEIS "23456789#"
@@ -37,7 +33,7 @@ Trie cria_no(char item);
 
 // Recebe uma trie, uma string e um valor posicional para o dígito sendo considerado;
 // Insere uma palavra na trie existencial, criando o caminho que representa a palavra.
-Trie insere_no(Trie t, char chave[], int d);
+Trie insere_no(Trie t, char chave[], size_t d);
 
 // Recebe uma trie e um código em T9;
 // Realiza uma busca conforme a travessia na trie é realizada;
@@ -47,12 +43,15 @@ void busca_no(Trie t, char codigo[], char chave[]);
 
 // Recebe uma trie, um código em T9 e um valor posicional para o dígito sendo considerado e uma string de resultado;
 // Busca uma palavra na trie existencial e coloca o resultado em uma string de consulta.
-void busca_no_rec(Trie t, char codigo[], char chave[], int d, char res[]);
+void busca_no_rec(Trie t, char codigo[], char chave[], size_t d, char res[]);
 
 // Recebe uma trie e retorna 1 se o nó for uma folha, 0 caso contrário.
 unsigned char eh_folha(Trie t);
 
-// Recebe um caractere e retorna o padrão associado a ele. Caso o caractere não pertence a nenhum padrão, retorna -1.
+// Recebe um caractere e retorna o padrão associado a ele. Caso o caractere não pertença a nenhum padrão, retorna -1.
 int padrao(char c);
+
+// Recebe uma trie e libera todo o espaço alocado para ela.
+void destroi_trie(Trie t);
 
 #endif // __TRIE__
