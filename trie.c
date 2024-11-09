@@ -29,7 +29,7 @@ void busca_no(Trie t, char codigo[], char chave[]) {
 }
 
 void busca_no_rec(Trie t, char codigo[], char chave[], size_t d, char res[]) {
-    if (eh_folha(t)) {
+    if (padrao(chave[d]) == 10 && eh_folha(t)) {
         res[d] = '\0';
 
         return;
@@ -41,7 +41,7 @@ void busca_no_rec(Trie t, char codigo[], char chave[], size_t d, char res[]) {
     if (codigo[d] == '#')
         prox = t->vet_ap[NUM_DIG - 1];
     else
-        prox = t->vet_ap[codigo[d] - '2']; // f: [2..9] -> [0..8].
+        prox = t->vet_ap[codigo[d] - '2']; // Mapeamento f: [2..9] -> [0..8].
 
     busca_no_rec(prox, codigo, chave, d + 1, res);
 }
@@ -51,7 +51,7 @@ Trie insere_no(Trie t, char chave[], size_t d) {
         Trie novo_no = cria_no(chave[d]);
         novo_no->vet_ap[NUM_DIG - 1] = cria_no('\0');
 
-        return novo_no; // Termina a inserção da palavra com uma folha após a última letra.
+        return novo_no; // Termina a inserção da palavra com uma folha (\0) após a última letra.
     }
 
     if (d > 0 && padrao(chave[d]) == padrao(chave[d - 1]))
@@ -101,6 +101,8 @@ Trie insere_no(Trie t, char chave[], size_t d) {
 }
 
 int padrao(char c) {
+    if (c == '\0') return 10;
+
     if (
         c == 'a'
         || c == 'b'
@@ -122,6 +124,36 @@ int padrao(char c) {
         return 3;
 
     if (
+        c == 'g'
+        || c == 'h'
+        || c == 'i'
+        || c == 'G'
+        || c == 'H'
+        || c == 'I'
+    )
+        return 4;
+
+    if (
+        c == 'j'
+        || c == 'k'
+        || c == 'l'
+        || c == 'J'
+        || c == 'K'
+        || c == 'L'
+    )
+        return 5;
+
+    if (
+        c == 'm'
+        || c == 'n'
+        || c == 'o'
+        || c == 'M'
+        || c == 'N'
+        || c == 'O'
+    )
+        return 6;
+
+    if (
         c == 'p' 
         || c == 'q' 
         || c == 'r' 
@@ -132,6 +164,16 @@ int padrao(char c) {
         || c == 'S'
     )
         return 7;
+
+    if (
+        c == 't'
+        || c == 'u'
+        || c == 'v'
+        || c == 'T'
+        || c == 'U'
+        || c == 'V'
+    )
+        return 8;
 
     if (
         c == 'w'
