@@ -2,7 +2,7 @@
 #define __TRIE__
 
 // Número de dígitos possíveis.
-#define NUM_DIG 10
+#define NUM_DIG 9
 
 // Tamanho máximo da palavra.
 #define TAM_PALAVRA 4096 + 1
