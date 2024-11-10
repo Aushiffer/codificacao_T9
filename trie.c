@@ -94,8 +94,6 @@ Trie insere_no(Trie t, char chave[], size_t d) {
 }
 
 int padrao(char c) {
-    if (c == '\0') return 10;
-
     if (
         c == 'a'
         || c == 'b'
