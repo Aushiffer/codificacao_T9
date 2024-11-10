@@ -10,29 +10,32 @@ Trie cria_no() {
     for (int i = 0; i < NUM_DIG; i++)
         t->vet_ap[i] = NULL;
 
+    strncpy(t->item, "|NULL|", TAM_PALAVRA);
+
     return t;
 }
 
 void busca_no(Trie t, char codigo[]) {
-    char res[TAM_PALAVRA];
+    char res[TAM_PALAVRA] = "|NULL|";
 
     busca_no_rec(t, codigo, 0, res);
     
-    if (strcmp(res, codigo) == 0)
+    if (strcmp(res, "|NULL|") != 0)
         printf("%s\n", res);
     else
         printf("palavra nao encontrada\n");
 }
 
-void busca_no_rec(Trie t, char codigo[], size_t d, char res[]) { 
-    if (!t || codigo[d] == '\0') {
-        res[d] = '\0';
+void busca_no_rec(Trie t, char codigo[], size_t d, char res[]) {
+    if (!t) return;
+
+    if (codigo[d] == '\0') {
+        strncpy(res, t->item, TAM_PALAVRA);
 
         return;
     }
     
     Trie prox;
-    res[d] = codigo[d];
 
     if (codigo[d] == '#')
         prox = t->vet_ap[NUM_DIG - 1];
@@ -43,11 +46,15 @@ void busca_no_rec(Trie t, char codigo[], size_t d, char res[]) {
 }
 
 Trie insere_no(Trie t, char chave[], size_t d) {
-    if (d == strlen(chave)) return t;
-
     if (!t) t = cria_no();
 
-    printf("%lu: %c\n", d, chave[d]); // Debugging.
+    if (chave[d] != '\0') printf("%lu: %c\n", d, chave[d]); // Debugging.
+
+    if (d == strlen(chave)) {
+        strncpy(t->item, chave, TAM_PALAVRA);
+
+        return t;
+    }
 
     if (d > 0 && padrao(chave[d]) == padrao(chave[d - 1]))
         t->vet_ap[NUM_DIG - 1] = insere_no(t->vet_ap[NUM_DIG - 1], chave, d + 1);

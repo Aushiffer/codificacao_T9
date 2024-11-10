@@ -36,9 +36,7 @@ int main(int argc, char *argv[]) {
 
     // Testes.
     trie = insere_no(trie, "socks", 0);
-    trie = insere_no(trie, "rocks", 0);
-    trie = insere_no(trie, "jello", 0);
-    trie = insere_no(trie, "jell", 0);
+    busca_no(trie, "76257");
 
     while (!feof(arquivo)) {
         fscanf(arquivo, "%s", teste);
