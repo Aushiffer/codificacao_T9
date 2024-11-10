@@ -2,16 +2,10 @@
 #define __TRIE__
 
 // Número de dígitos possíveis.
-#define NUM_DIG 10
+#define NUM_DIG 9
 
 // Tamanho máximo da palavra.
 #define TAM_PALAVRA 4096 + 1
-
-// Alfabeto de A a Z.
-#define ALFABETO "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
-
-// Dígitos possíveis.
-#define DIGS_POSSIVEIS "23456789#"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -29,7 +23,7 @@ void inicia_trie(Trie *t);
 
 // Retorna um novo nó de uma trie n-ária, cujos apontadores são nulos.
 // Caso a alocação gere erro, retorna NULL.
-Trie cria_no(char item);
+Trie cria_no();
 
 // Recebe uma trie, uma string e um valor posicional para o dígito sendo considerado;
 // Insere uma palavra na trie n-ária, criando o caminho que representa a palavra.

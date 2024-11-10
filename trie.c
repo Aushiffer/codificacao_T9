@@ -4,15 +4,13 @@
 
 void inicia_trie(Trie *t) { *t = NULL; }
 
-Trie cria_no(char item) {
+Trie cria_no() {
     Trie t;
 
     if (!(t = (Trie)malloc(sizeof(No)))) return NULL;
 
     for (int i = 0; i < NUM_DIG; i++)
         t->vet_ap[i] = NULL;
-
-    t->item = item; // Caractere pertencente ao caminho da palavra sendo inserida.
 
     return t;
 }
@@ -32,27 +30,22 @@ void busca_no_rec(Trie t, char codigo[], char chave[], size_t d, char res[]) {
     if (padrao(chave[d]) == 10 && eh_folha(t)) {
         res[d] = '\0';
 
-        return;
+        return;   
     }
-
+    
     Trie prox;
-    res[d] = t->item;
+    res[d] = chave[d];
 
     if (codigo[d] == '#')
         prox = t->vet_ap[NUM_DIG - 1];
     else
-        prox = t->vet_ap[codigo[d] - '2']; // Mapeamento f: [2..9] -> [0..8].
+        prox = t->vet_ap[codigo[d] - '2'];
 
     busca_no_rec(prox, codigo, chave, d + 1, res);
 }
 
 Trie insere_no(Trie t, char chave[], size_t d) {
-    if (!t) {
-        Trie novo_no = cria_no(chave[d]);
-        novo_no->vet_ap[NUM_DIG - 1] = cria_no('\0');
-
-        return novo_no; // Termina a inserção da palavra com uma folha (\0) após a última letra.
-    }
+    if (!t) return cria_no();
 
     if (d > 0 && padrao(chave[d]) == padrao(chave[d - 1]))
         t->vet_ap[8] = insere_no(t->vet_ap[NUM_DIG - 1], chave, d + 1);
@@ -190,7 +183,12 @@ int padrao(char c) {
     return -1;
 }
 
-unsigned char eh_folha(Trie t) { return t->item == '\0'; }
+unsigned char eh_folha(Trie t) {
+    for (int i = 0; i < NUM_DIG; i++)
+        if (t->vet_ap[i]) return 0;
+
+    return 1;
+}
 
 void destroi_trie(Trie t) {
     if (!t) return;
