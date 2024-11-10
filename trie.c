@@ -1,6 +1,4 @@
 #include "trie.h"
-#include <stdio.h>
-#include <string.h>
 
 void inicia_trie(Trie *t) { *t = NULL; }
 
