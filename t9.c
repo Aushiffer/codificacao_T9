@@ -3,7 +3,8 @@
 enum FlagsErro {
     ERRO_ARGC_INVALIDO = 1,
     ERRO_FOPEN,
-    ERRO_MALLOC
+    ERRO_MALLOC,
+    ERRO_TRIE
 };
 
 int main(int argc, char *argv[]) {
@@ -29,6 +30,16 @@ int main(int argc, char *argv[]) {
         return ERRO_MALLOC;
     }
 
+    Trie trie; inicia_trie(&trie);
+
+    if (!(trie = cria_no())) return ERRO_TRIE; // Deve existir um nó 'dummy' antes da inserção de qualquer palavra.
+
+    // Testes.
+    trie = insere_no(trie, "socks", 0);
+    trie = insere_no(trie, "rocks", 0);
+    trie = insere_no(trie, "jello", 0);
+    trie = insere_no(trie, "jell", 0);
+
     while (!feof(arquivo)) {
         fscanf(arquivo, "%s", teste);
         printf("%s ", teste);
@@ -37,6 +48,7 @@ int main(int argc, char *argv[]) {
     printf("\n");
     fclose(arquivo);
     free(teste);
+    destroi_trie(trie);
 
     return 0;
 }

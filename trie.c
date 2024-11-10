@@ -43,9 +43,11 @@ void busca_no_rec(Trie t, char codigo[], size_t d, char res[]) {
 }
 
 Trie insere_no(Trie t, char chave[], size_t d) {
-    if (d == strlen(chave) - 1) return t;
+    if (d == strlen(chave)) return t;
 
     if (!t) t = cria_no();
+
+    printf("%lu: %c\n", d, chave[d]); // Debugging.
 
     if (d > 0 && padrao(chave[d]) == padrao(chave[d - 1]))
         t->vet_ap[NUM_DIG - 1] = insere_no(t->vet_ap[NUM_DIG - 1], chave, d + 1);
