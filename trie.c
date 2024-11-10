@@ -27,13 +27,17 @@ void busca_no(Trie t, char codigo[]) {
 }
 
 void busca_no_rec(Trie t, char codigo[], size_t d, char res[]) { 
+    if (!t || codigo[d] == '\0') {
+        res[d] = '\0';
+
+        return;
+    }
+    
     Trie prox;
     res[d] = codigo[d];
 
-    if (codigo[d] == '\0')
-        return;
-    else if (codigo[d] == '#')
-        prox = t->vet_ap[8];
+    if (codigo[d] == '#')
+        prox = t->vet_ap[NUM_DIG - 1];
     else
         prox = t->vet_ap[codigo[d] - '2'];
 
@@ -41,9 +45,9 @@ void busca_no_rec(Trie t, char codigo[], size_t d, char res[]) {
 }
 
 Trie insere_no(Trie t, char chave[], size_t d) {
-    if (!t) t = cria_no();
-
     if (d == strlen(chave) - 1) return t;
+
+    if (!t) t = cria_no();
 
     if (d > 0 && padrao(chave[d]) == padrao(chave[d - 1]))
         t->vet_ap[NUM_DIG - 1] = insere_no(t->vet_ap[NUM_DIG - 1], chave, d + 1);
@@ -79,10 +83,6 @@ Trie insere_no(Trie t, char chave[], size_t d) {
                 break;
             case 9:
                 t->vet_ap[7] = insere_no(t->vet_ap[7], chave, d + 1);
-
-                break;
-            default:
-                perror("padrao nao encontrado");
 
                 break;
         }
