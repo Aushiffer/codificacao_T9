@@ -15,33 +15,33 @@ Trie cria_no() {
     return t;
 }
 
-void busca_no(Trie t, char codigo[], char chave[]) {
+void busca_no(Trie t, char codigo[]) {
     char res[TAM_PALAVRA];
 
-    busca_no_rec(t, codigo, chave, 0, res);
+    busca_no_rec(t, codigo, 0, res);
     
-    if (strcmp(res, chave) == 0)
+    if (strcmp(res, codigo) == 0)
         printf("%s\n", res);
     else
         printf("palavra nao encontrada\n");
 }
 
-void busca_no_rec(Trie t, char codigo[], char chave[], size_t d, char res[]) {
-    if (padrao(chave[d]) == 10 && eh_folha(t)) {
+void busca_no_rec(Trie t, char codigo[], size_t d, char res[]) {
+    if (eh_folha(t)) {
         res[d] = '\0';
 
         return;   
     }
     
     Trie prox;
-    res[d] = chave[d];
+    res[d] = codigo[d];
 
     if (codigo[d] == '#')
         prox = t->vet_ap[NUM_DIG - 1];
     else
         prox = t->vet_ap[codigo[d] - '2'];
 
-    busca_no_rec(prox, codigo, chave, d + 1, res);
+    busca_no_rec(prox, codigo, d + 1, res);
 }
 
 Trie insere_no(Trie t, char chave[], size_t d) {

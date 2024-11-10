@@ -33,11 +33,11 @@ Trie insere_no(Trie t, char chave[], size_t d);
 // Realiza uma busca conforme a travessia na trie é realizada;
 // Se a string existir na trie, imprime a palavra buscada, caso contrário imprime 'palavra nao encontrada'.
 // É uma função auxiliar para a função recursiva de busca.
-void busca_no(Trie t, char codigo[], char chave[]);
+void busca_no(Trie t, char codigo[]);
 
 // Recebe uma trie, um código em T9, a chave correspondente ao código, um valor posicional para o dígito sendo considerado e uma string de resultado;
 // Busca uma palavra na trie n-ária e coloca o resultado em uma string de consulta.
-void busca_no_rec(Trie t, char codigo[], char chave[], size_t d, char res[]);
+void busca_no_rec(Trie t, char codigo[], size_t d, char res[]);
 
 // Recebe uma trie e retorna 1 se o nó for uma folha, 0 caso contrário.
 unsigned char eh_folha(Trie t);
