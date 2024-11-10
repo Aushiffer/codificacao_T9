@@ -1,4 +1,5 @@
 #include "trie.h"
+#include <string.h>
 
 void inicia_trie(Trie *t) { *t = NULL; }
 
@@ -10,89 +11,90 @@ Trie cria_no() {
     for (int i = 0; i < NUM_DIG; i++)
         t->vet_ap[i] = NULL;
 
-    strncpy(t->item, "|NULL|", TAM_PALAVRA);
+    set_chave(t, "|NULL|");
 
     return t;
 }
 
-void busca_no(Trie t, char codigo[]) {
-    char res[TAM_PALAVRA] = "|NULL|";
+void set_chave(Trie t, char chave[]) { strncpy(t->item, chave, TAM_PALAVRA); }
 
-    busca_no_rec(t, codigo, 0, res);
-    
-    if (strcmp(res, "|NULL|") != 0)
-        printf("%s\n", res);
+void busca_no(Trie t, char codigo[]) {
+    Trie no_busca = busca_no_rec(t, codigo, 0);
+
+    if (no_busca && strcmp(no_busca->item, "|NULL|") != 0)
+        printf("%s\n", no_busca->item);
     else
         printf("palavra nao encontrada\n");
 }
 
-void busca_no_rec(Trie t, char codigo[], size_t d, char res[]) {
-    if (!t) return;
-
-    if (codigo[d] == '\0') {
-        strncpy(res, t->item, TAM_PALAVRA);
-
-        return;
-    }
+Trie busca_no_rec(Trie t, char codigo[], size_t d) { 
+    if (!t || codigo[d] == '\0') return t;
     
-    Trie prox;
+    Trie prox = (codigo[d] == '#') ? t->vet_ap[NUM_DIG - 1] : t->vet_ap[codigo[d] - '2'];
 
-    if (codigo[d] == '#')
-        prox = t->vet_ap[NUM_DIG - 1];
-    else
-        prox = t->vet_ap[codigo[d] - '2'];
-
-    busca_no_rec(prox, codigo, d + 1, res);
+    return busca_no_rec(prox, codigo, d + 1);
 }
 
-Trie insere_no(Trie t, char chave[], size_t d) {
-    if (!t) t = cria_no();
-
-    if (chave[d] != '\0') printf("%lu: %c\n", d, chave[d]); // Debugging.
-
+Trie insere_no(Trie t, char chave[], size_t d) {    
     if (d == strlen(chave)) {
-        strncpy(t->item, chave, TAM_PALAVRA);
+        if (!t) {
+            Trie novo_no = cria_no();
+            set_chave(novo_no, chave);
 
-        return t;
+            return novo_no;
+        }
+
+        if (strcmp(t->item, "|NULL|") == 0)
+            set_chave(t, chave);
+        else
+            t->vet_ap[NUM_DIG - 1] = insere_no(t->vet_ap[NUM_DIG - 1], chave, d);
+
+        return t;     
     }
 
-    if (d > 0 && padrao(chave[d]) == padrao(chave[d - 1]))
-        t->vet_ap[NUM_DIG - 1] = insere_no(t->vet_ap[NUM_DIG - 1], chave, d + 1);
-    else {
-        switch (padrao(chave[d])) {
-            case 2:
-                t->vet_ap[0] = insere_no(t->vet_ap[0], chave, d + 1);
+    printf("%lu: %c | ", d, chave[d]); // Debugging.
 
-                break;
-            case 3:
-                t->vet_ap[1] = insere_no(t->vet_ap[1], chave, d + 1);
+    if (!t) {
+        if (!(t = cria_no())) {
+            perror("insere_no() - erro ao inserir um novo nó");
 
-                break;
-            case 4:
-                t->vet_ap[2] = insere_no(t->vet_ap[2], chave, d + 1);
-
-                break;
-            case 5:
-                t->vet_ap[3] = insere_no(t->vet_ap[3], chave, d + 1);
-
-                break;
-            case 6:
-                t->vet_ap[4] = insere_no(t->vet_ap[4], chave, d + 1);
-
-                break;
-            case 7:
-                t->vet_ap[5] = insere_no(t->vet_ap[5], chave, d + 1);
-
-                break;
-            case 8:
-                t->vet_ap[6] = insere_no(t->vet_ap[6], chave, d + 1);
-
-                break;
-            case 9:
-                t->vet_ap[7] = insere_no(t->vet_ap[7], chave, d + 1);
-
-                break;
+            return NULL;
         }
+    }
+
+    switch (padrao(chave[d])) {
+        case 2:
+            t->vet_ap[0] = insere_no(t->vet_ap[0], chave, d + 1);
+
+            break;
+        case 3:
+            t->vet_ap[1] = insere_no(t->vet_ap[1], chave, d + 1);
+
+            break;
+        case 4:
+            t->vet_ap[2] = insere_no(t->vet_ap[2], chave, d + 1);
+
+            break;
+        case 5:
+            t->vet_ap[3] = insere_no(t->vet_ap[3], chave, d + 1);
+
+            break;
+        case 6:
+            t->vet_ap[4] = insere_no(t->vet_ap[4], chave, d + 1);
+
+            break;
+        case 7:
+            t->vet_ap[5] = insere_no(t->vet_ap[5], chave, d + 1);
+
+            break;
+        case 8:
+            t->vet_ap[6] = insere_no(t->vet_ap[6], chave, d + 1);
+
+            break;
+        case 9:
+            t->vet_ap[7] = insere_no(t->vet_ap[7], chave, d + 1);
+
+            break;
     }
 
     return t;

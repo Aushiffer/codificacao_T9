@@ -3,3 +3,6 @@ t9
 
 # Arquivos-objeto
 *.o
+
+# Valgrind core dumps
+vgcore*

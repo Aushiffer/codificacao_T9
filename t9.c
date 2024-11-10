@@ -3,7 +3,6 @@
 enum FlagsErro {
     ERRO_ARGC_INVALIDO = 1,
     ERRO_FOPEN,
-    ERRO_MALLOC,
     ERRO_TRIE
 };
 
@@ -15,6 +14,8 @@ int main(int argc, char *argv[]) {
     }
 
     FILE *arquivo;
+    Trie trie; inicia_trie(&trie);
+    char buf_input[TAM_PALAVRA];
 
     if (!(arquivo = fopen(argv[1], "r"))) {
         perror("main() - erro ao abrir arquivo");
@@ -22,30 +23,22 @@ int main(int argc, char *argv[]) {
         return ERRO_FOPEN;
     }
 
-    char *teste;
+    if (!(trie = cria_no())) {
+        perror("main() - erro na criação da raiz (dummy node)");
 
-    if (!(teste = (char *)malloc(64 * sizeof(char)))) {
-        perror("main() - erro de alocação");
-
-        return ERRO_MALLOC;
+        return ERRO_TRIE;
     }
-
-    Trie trie; inicia_trie(&trie);
-
-    if (!(trie = cria_no())) return ERRO_TRIE; // Deve existir um nó 'dummy' antes da inserção de qualquer palavra.
-
-    // Testes.
-    trie = insere_no(trie, "socks", 0);
-    busca_no(trie, "76257");
 
     while (!feof(arquivo)) {
-        fscanf(arquivo, "%s", teste);
-        printf("%s ", teste);
+        fscanf(arquivo, "%s", buf_input);
+        
+        trie = insere_no(trie, buf_input, 0);
+
+        printf("\n");
     }
 
-    printf("\n");
+    busca_no(trie, "7625##");
     fclose(arquivo);
-    free(teste);
     destroi_trie(trie);
 
     return 0;

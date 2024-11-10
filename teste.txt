@@ -1,6 +1,6 @@
-azul
-vermelho
-amarelo
-verde
-roxo
-laranja
+jello
+rocks
+socks
+sock
+rock
+pock
