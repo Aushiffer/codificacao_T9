@@ -26,18 +26,14 @@ void busca_no(Trie t, char codigo[]) {
         printf("palavra nao encontrada\n");
 }
 
-void busca_no_rec(Trie t, char codigo[], size_t d, char res[]) {
-    if (eh_folha(t)) {
-        res[d] = '\0';
-
-        return;   
-    }
-    
+void busca_no_rec(Trie t, char codigo[], size_t d, char res[]) { 
     Trie prox;
     res[d] = codigo[d];
 
-    if (codigo[d] == '#')
-        prox = t->vet_ap[NUM_DIG - 1];
+    if (codigo[d] == '\0')
+        return;
+    else if (codigo[d] == '#')
+        prox = t->vet_ap[8];
     else
         prox = t->vet_ap[codigo[d] - '2'];
 
@@ -45,11 +41,14 @@ void busca_no_rec(Trie t, char codigo[], size_t d, char res[]) {
 }
 
 Trie insere_no(Trie t, char chave[], size_t d) {
-    if (!t) return cria_no();
+    if (!t) t = cria_no();
 
-    if (d > 0 && padrao(chave[d]) == padrao(chave[d - 1]))
-        t->vet_ap[8] = insere_no(t->vet_ap[NUM_DIG - 1], chave, d + 1);
-    else {
+    if (d == strlen(chave) - 1) return t;
+
+    if (d > 0 && padrao(chave[d]) == padrao(chave[d - 1])) {
+        if (!t->vet_ap[8]) t->vet_ap[8] = cria_no();
+        t->vet_ap[8] = insere_no(t->vet_ap[8], chave, d + 1);
+    } else {
         switch (padrao(chave[d])) {
             case 2:
                 t->vet_ap[0] = insere_no(t->vet_ap[0], chave, d + 1);
@@ -94,6 +93,8 @@ Trie insere_no(Trie t, char chave[], size_t d) {
 }
 
 int padrao(char c) {
+    if (c == '\0') return 10;
+
     if (
         c == 'a'
         || c == 'b'
