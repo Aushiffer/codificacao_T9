@@ -34,20 +34,19 @@ void set_chave(Trie t, char chave[]);
 Trie insere_no(Trie t, char chave[], size_t d);
 
 // Recebe uma trie e um código em T9;
-// Realiza uma busca conforme a travessia na trie é realizada;
-// Se a string existir na trie, imprime a palavra buscada, caso contrário imprime 'palavra nao encontrada'.
+// Se a string correspondente ao código existir na trie, imprime a palavra buscada, caso contrário imprime 'palavra nao encontrada'.
 // É uma função auxiliar para a função recursiva de busca.
 void busca_no(Trie t, char codigo[]);
 
-// Recebe uma trie, um código em T9, a chave correspondente ao código, um valor posicional para o dígito sendo considerado e uma string de resultado;
-// Busca uma palavra na trie n-ária e coloca o resultado em uma string de consulta.
+// Recebe uma trie, um código em T9 e um valor posicional para o dígito sendo considerado.
+// Busca uma palavra na trie n-ária e retorna o nó que possui a chave (ou NULL caso ela não exista).
 Trie busca_no_rec(Trie t, char codigo[], size_t d);
-
-// Recebe uma trie e retorna 1 se o nó for uma folha, 0 caso contrário.
-unsigned char eh_folha(Trie t);
 
 // Recebe um caractere e retorna o padrão associado a ele. Caso o caractere não pertença a nenhum padrão, retorna -1.
 int padrao(char c);
+
+// Recebe um código em T9 e verifica se e avalia sua validade, ou seja, se para todo dígito 'k' do código, 'k' está em [2..9].
+unsigned char codigo_valido(char codigo[]);
 
 // Recebe uma trie e libera todo o espaço alocado para ela.
 void destroi_trie(Trie t);

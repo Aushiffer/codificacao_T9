@@ -1,5 +1,4 @@
 #include "trie.h"
-#include <string.h>
 
 void inicia_trie(Trie *t) { *t = NULL; }
 
@@ -19,11 +18,18 @@ Trie cria_no() {
 void set_chave(Trie t, char chave[]) { strncpy(t->item, chave, TAM_PALAVRA); }
 
 void busca_no(Trie t, char codigo[]) {
+    if (!codigo_valido(codigo)) {
+        printf("entrada invalida\n");
+
+        return;
+    }
+
     Trie no_busca = busca_no_rec(t, codigo, 0);
 
-    if (no_busca && strcmp(no_busca->item, "|NULL|") != 0)
+    if (no_busca && strcmp(no_busca->item, "|NULL|") != 0) {
         printf("%s\n", no_busca->item);
-    else
+
+    } else
         printf("palavra nao encontrada\n");
 }
 
@@ -51,8 +57,6 @@ Trie insere_no(Trie t, char chave[], size_t d) {
 
         return t;     
     }
-
-    printf("%lu: %c | ", d, chave[d]); // Debugging.
 
     if (!t) {
         if (!(t = cria_no())) {
@@ -93,6 +97,10 @@ Trie insere_no(Trie t, char chave[], size_t d) {
             break;
         case 9:
             t->vet_ap[7] = insere_no(t->vet_ap[7], chave, d + 1);
+
+            break;
+        default:
+            perror("insere_no() - padrão não encontrado");
 
             break;
     }
@@ -188,9 +196,9 @@ int padrao(char c) {
     return -1;
 }
 
-unsigned char eh_folha(Trie t) {
-    for (int i = 0; i < NUM_DIG; i++)
-        if (t->vet_ap[i]) return 0;
+unsigned char codigo_valido(char codigo[]) {
+    for (size_t i = 0; i < strlen(codigo); i++)
+        if (codigo[i] < '2' && codigo[i] != '#') return 0;
 
     return 1;
 }
