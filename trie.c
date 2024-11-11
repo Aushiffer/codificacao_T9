@@ -15,7 +15,12 @@ Trie cria_no() {
     return t;
 }
 
-void set_chave(Trie t, char chave[]) { t->item = strdup(chave); }
+void set_chave(Trie t, char chave[]) { 
+    if (!t->item)
+        t->item = strdup(chave);
+    else
+        strncpy(t->item, chave, TAM_PALAVRA);
+}
 
 void busca_no(Trie t, char codigo[]) {
     if (!codigo_valido(codigo)) {
