@@ -31,7 +31,7 @@ void busca_no(Trie t, char codigo[]) {
 
     Trie no_busca = busca_no_rec(t, codigo, 0);
 
-    if (no_busca && no_busca->item != NULL)
+    if (no_busca && no_busca->item)
         printf("%s\n", no_busca->item);
     else
         printf("palavra nao encontrada\n");
@@ -54,7 +54,7 @@ Trie insere_no(Trie t, char chave[], size_t d) {
             return novo_no;
         }
 
-        if (t->item == NULL)
+        if (!t->item)
             set_chave(t, chave);
         else
             t->vet_ap[NUM_DIG - 1] = insere_no(t->vet_ap[NUM_DIG - 1], chave, d);
