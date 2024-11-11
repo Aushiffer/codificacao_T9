@@ -15,7 +15,7 @@
 typedef struct No *Trie;
 typedef struct No {
     Trie vet_ap[NUM_DIG];
-    char item[TAM_PALAVRA];
+    char *item;
 } No;
 
 // Recebe um ponteiro para uma trie n-ária e o inicializa com NULL.

@@ -6,3 +6,6 @@ t9
 
 # Valgrind core dumps
 vgcore*
+
+# Saída
+saida.txt

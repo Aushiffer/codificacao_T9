@@ -10,12 +10,12 @@ Trie cria_no() {
     for (int i = 0; i < NUM_DIG; i++)
         t->vet_ap[i] = NULL;
 
-    set_chave(t, "|NULL|");
+    t->item = NULL;
 
     return t;
 }
 
-void set_chave(Trie t, char chave[]) { strncpy(t->item, chave, TAM_PALAVRA); }
+void set_chave(Trie t, char chave[]) { t->item = strdup(chave); }
 
 void busca_no(Trie t, char codigo[]) {
     if (!codigo_valido(codigo)) {
@@ -26,10 +26,9 @@ void busca_no(Trie t, char codigo[]) {
 
     Trie no_busca = busca_no_rec(t, codigo, 0);
 
-    if (no_busca && strcmp(no_busca->item, "|NULL|") != 0) {
+    if (no_busca && no_busca->item != NULL)
         printf("%s\n", no_busca->item);
-
-    } else
+    else
         printf("palavra nao encontrada\n");
 }
 
@@ -50,7 +49,7 @@ Trie insere_no(Trie t, char chave[], size_t d) {
             return novo_no;
         }
 
-        if (strcmp(t->item, "|NULL|") == 0)
+        if (t->item == NULL)
             set_chave(t, chave);
         else
             t->vet_ap[NUM_DIG - 1] = insere_no(t->vet_ap[NUM_DIG - 1], chave, d);
@@ -205,6 +204,8 @@ unsigned char codigo_valido(char codigo[]) {
 
 void destroi_trie(Trie t) {
     if (!t) return;
+
+    if (t->item) free(t->item);
 
     for (int i = 0; i < NUM_DIG; i++)
         destroi_trie(t->vet_ap[i]);
