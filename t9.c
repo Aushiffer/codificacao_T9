@@ -1,9 +1,11 @@
 #include "trie.h"
+#include <stdio.h>
 
 enum FlagsErro {
     ERRO_ARGC_INVALIDO = 1,
     ERRO_FOPEN,
-    ERRO_TRIE
+    ERRO_TRIE_CRIACAO,
+    ERRO_TRIE_INSERCAO
 };
 
 int main(int argc, char *argv[]) {
@@ -29,13 +31,20 @@ int main(int argc, char *argv[]) {
     if (!(trie = cria_no())) {
         perror("main() - erro na criação da raiz (dummy node)");
 
-        return ERRO_TRIE;
+        return ERRO_TRIE_CRIACAO;
     }
 
     // Construção da trie.
     while (!feof(arquivo)) {
         fscanf(arquivo, "%s", entrada);
-        trie = insere_no(trie, entrada, 0);
+        
+        if (!(trie = insere_no(trie, entrada, 0))) {
+            perror("main() - erro na inserção");
+            fclose(arquivo);
+            destroi_trie(trie);
+
+            return ERRO_TRIE_INSERCAO;
+        }
     }
 
     scanf("%s", entrada);

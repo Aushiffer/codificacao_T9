@@ -48,7 +48,14 @@ Trie busca_no_rec(Trie t, char codigo[], size_t d) {
 Trie insere_no(Trie t, char chave[], size_t d) {    
     if (d == strlen(chave)) {
         if (!t) {
-            Trie novo_no = cria_no();
+            Trie novo_no;
+
+            if (!(novo_no = cria_no())) {
+                perror("insere_no() - erro ao criar um novo nó");
+
+                return NULL;
+            }
+
             set_chave(novo_no, chave);
 
             return novo_no;
@@ -64,7 +71,7 @@ Trie insere_no(Trie t, char chave[], size_t d) {
 
     if (!t) {
         if (!(t = cria_no())) {
-            perror("insere_no() - erro ao inserir um novo nó");
+            perror("insere_no() - erro ao criar um novo nó");
 
             return NULL;
         }
@@ -202,7 +209,7 @@ int padrao(char c) {
 
 unsigned char codigo_valido(char codigo[]) {
     for (size_t i = 0; i < strlen(codigo); i++)
-        if (codigo[i] < '2' && codigo[i] != '#') return 0;
+        if ((codigo[i] < '2' || codigo[i] > '9') && codigo[i] != '#') return 0;
 
     return 1;
 }
