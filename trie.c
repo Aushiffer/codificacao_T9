@@ -1,3 +1,9 @@
+/*
+* trie.c: implementação do TAD Trie n-ária.
+* Autores: Caio E. F. de Miranda e Andreus G. Schultz.
+* Implementa as funções necessárias para se ter busca e inserção na trie n-ária, segundo o que se pede no enunciado.
+*/
+
 #include "trie.h"
 
 void inicia_trie(Trie *t) { *t = NULL; }
@@ -51,7 +57,7 @@ Trie insere_no(Trie t, char chave[], size_t d) {
             Trie novo_no;
 
             if (!(novo_no = cria_no())) {
-                perror("insere_no() - erro ao criar um novo nó");
+                fprintf(stderr, "insere_no() - erro ao criar um novo nó");
 
                 return NULL;
             }
@@ -71,7 +77,7 @@ Trie insere_no(Trie t, char chave[], size_t d) {
 
     if (!t) {
         if (!(t = cria_no())) {
-            perror("insere_no() - erro ao criar um novo nó");
+            fprintf(stderr, "insere_no() - erro ao criar um novo nó");
 
             return NULL;
         }
@@ -111,7 +117,7 @@ Trie insere_no(Trie t, char chave[], size_t d) {
 
             break;
         default:
-            perror("insere_no() - padrão não encontrado");
+            fprintf(stderr, "insere_no() - padrão não encontrado");
 
             break;
     }

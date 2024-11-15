@@ -1,5 +1,10 @@
+/* 
+* t9.c: programa cliente.
+* Autores: Caio E. F. de Miranda e Andreus G. Schultz.
+* Carrega as palavras do arquivo de entrada na trie e possibilita a busca por palavras na trie.
+*/ 
+
 #include "trie.h"
-#include <stdio.h>
 
 enum FlagsErro {
     ERRO_ARGC_INVALIDO = 1,
@@ -10,7 +15,7 @@ enum FlagsErro {
 
 int main(int argc, char *argv[]) {
     if (argc != 2) {
-        perror("main() - erro ao processar argumento, use ./t9 <nome do arquivo>.<extensão>");
+        fprintf(stderr, "main() - erro ao processar argumento, use ./t9 <nome do arquivo>.<extensão>");
 
         return ERRO_ARGC_INVALIDO;
     }
@@ -22,14 +27,14 @@ int main(int argc, char *argv[]) {
 
     // Inicialização da stream de arquivo.
     if (!(arquivo = fopen(argv[1], "r"))) {
-        perror("main() - erro ao abrir arquivo");
+        fprintf(stderr, "main() - erro ao abrir arquivo");
 
         return ERRO_FOPEN;
     }
 
     // Inicialização da trie.
     if (!(trie = cria_no())) {
-        perror("main() - erro na criação da raiz (dummy node)");
+        fprintf(stderr, "main() - erro na criação da raiz (dummy node)");
 
         return ERRO_TRIE_CRIACAO;
     }
@@ -39,7 +44,7 @@ int main(int argc, char *argv[]) {
         fscanf(arquivo, "%s", entrada);
         
         if (!(trie = insere_no(trie, entrada, 0))) {
-            perror("main() - erro na inserção");
+            fprintf(stderr, "main() - erro na inserção");
             fclose(arquivo);
             destroi_trie(trie);
 

@@ -14,4 +14,4 @@ t9.o: t9.c
 	$(CC) -c t9.c $(CCFLAGS)
 
 clean:
-	rm -f *.o $(PROGRAM)
+	rm -f *.o

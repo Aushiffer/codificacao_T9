@@ -18,10 +18,10 @@ typedef struct No {
     char *item;
 } No;
 
-// Recebe um ponteiro para uma trie n-ária e o inicializa com NULL.
+// Recebe um ponteiro para uma trie e o inicializa com NULL.
 void inicia_trie(Trie *t);
 
-// Retorna um novo nó de uma trie n-ária, cujos apontadores são nulos.
+// Retorna um novo nó de uma trie, cujos apontadores são nulos.
 // Caso a alocação gere erro, retorna NULL.
 Trie cria_no();
 
@@ -30,7 +30,7 @@ Trie cria_no();
 void set_chave(Trie t, char chave[]);
 
 // Recebe uma trie, uma string e um valor posicional para o dígito sendo considerado;
-// Insere uma palavra na trie n-ária, criando o caminho que representa a palavra.
+// Insere uma palavra na trie, criando o caminho que representa a palavra.
 Trie insere_no(Trie t, char chave[], size_t d);
 
 // Recebe uma trie e um código em T9;
@@ -39,7 +39,7 @@ Trie insere_no(Trie t, char chave[], size_t d);
 void busca_no(Trie t, char codigo[]);
 
 // Recebe uma trie, um código em T9 e um valor posicional para o dígito sendo considerado.
-// Busca uma palavra na trie n-ária e retorna o nó que possui a chave (ou NULL caso ela não exista).
+// Busca uma palavra na trie e retorna o nó que possui a chave (ou NULL caso ela não exista).
 Trie busca_no_rec(Trie t, char codigo[], size_t d);
 
 // Recebe um caractere e retorna o padrão associado a ele. Caso o caractere não pertença a nenhum padrão, retorna -1.
