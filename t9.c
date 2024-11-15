@@ -15,7 +15,7 @@ enum FlagsErro {
 
 int main(int argc, char *argv[]) {
     if (argc != 2) {
-        fprintf(stderr, "main() - erro ao processar argumento, use ./t9 <nome do arquivo>.<extensão>");
+        fprintf(stderr, "main() - erro ao processar argumento, use ./t9 <nome do arquivo>.<extensão>\n");
 
         return ERRO_ARGC_INVALIDO;
     }
@@ -26,14 +26,14 @@ int main(int argc, char *argv[]) {
 
     // Inicialização da stream de arquivo.
     if (!(arquivo = fopen(argv[1], "r"))) {
-        fprintf(stderr, "main() - erro ao abrir arquivo");
+        fprintf(stderr, "main() - erro ao abrir arquivo\n");
 
         return ERRO_FOPEN;
     }
 
     // Inicialização da trie.
     if (!(trie = cria_no())) {
-        fprintf(stderr, "main() - erro na criação da raiz (dummy node)");
+        fprintf(stderr, "main() - erro na criação da raiz (dummy node)\n");
 
         return ERRO_TRIE_CRIACAO;
     }
@@ -43,7 +43,7 @@ int main(int argc, char *argv[]) {
         fscanf(arquivo, "%s", entrada);
         
         if (!(trie = insere_no(trie, entrada, 0))) {
-            fprintf(stderr, "main() - erro na inserção");
+            fprintf(stderr, "main() - erro na inserção\n");
             fclose(arquivo);
             destroi_trie(trie);
 

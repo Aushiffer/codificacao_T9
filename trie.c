@@ -57,7 +57,7 @@ Trie insere_no(Trie t, char chave[], size_t d) {
             Trie novo_no;
 
             if (!(novo_no = cria_no())) {
-                fprintf(stderr, "insere_no() - erro ao criar um novo nó");
+                fprintf(stderr, "insere_no() - erro ao criar um novo nó\n");
 
                 return NULL;
             }
@@ -77,7 +77,7 @@ Trie insere_no(Trie t, char chave[], size_t d) {
 
     if (!t) {
         if (!(t = cria_no())) {
-            fprintf(stderr, "insere_no() - erro ao criar um novo nó");
+            fprintf(stderr, "insere_no() - erro ao criar um novo nó\n");
 
             return NULL;
         }
@@ -117,7 +117,7 @@ Trie insere_no(Trie t, char chave[], size_t d) {
 
             break;
         default:
-            fprintf(stderr, "insere_no() - padrão não encontrado");
+            fprintf(stderr, "insere_no() - padrão não encontrado\n");
 
             break;
     }
