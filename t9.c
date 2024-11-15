@@ -23,7 +23,7 @@ int main(int argc, char *argv[]) {
     FILE *arquivo;
     Trie trie; inicia_trie(&trie);
     Trie res_busca; inicia_trie(&res_busca);
-    char entrada[TAM_PALAVRA], entrada_cat[TAM_PALAVRA * 2];
+    char entrada[TAM_PALAVRA], entrada_cat[TAM_PALAVRA << 1];
 
     // Inicialização da stream de arquivo.
     if (!(arquivo = fopen(argv[1], "r"))) {
