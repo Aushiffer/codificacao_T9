@@ -1,7 +1,7 @@
 /* 
 * t9.c: programa cliente.
 * Autores: Caio E. F. de Miranda e Andreus G. Schultz.
-* Carrega as palavras do arquivo de entrada na trie e possibilita a busca por palavras na trie.
+* Carrega as palavras do arquivo de entrada na trie e possibilita a busca por palavras na estrutura.
 */ 
 
 #include "trie.h"
