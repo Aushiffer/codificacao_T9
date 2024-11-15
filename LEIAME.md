@@ -1,4 +1,4 @@
-# codificacao_T9
+# CI1057: trabalho prático - texto preditivo T9
 Trabalho feito na disciplina de Algoritmos e Estruturas de Dados III.
 O objetivo do trabalho era implementar o texto preditivo T9, um tipo de entrada desenvolvida para ser usada em teclados numéricos.
 
