@@ -1,6 +1,6 @@
 # CI1057: trabalho prático - texto preditivo T9
 Trabalho feito na disciplina de Algoritmos e Estruturas de Dados III.
-O objetivo do trabalho era implementar o texto preditivo T9, um tipo de entrada desenvolvida para ser usada em teclados numéricos.
+Objetivo: implementar o texto preditivo T9, um tipo de entrada desenvolvida para ser usada em teclados numéricos.
 
 ## Autoria
 Caio E. F. de Miranda e Andreus G. Schultz.
@@ -15,7 +15,7 @@ Se duas palavras possuírem a mesma codificação, a que foi inserida depois é 
 ### Busca | Complexidade: O(c), onde 'c' é o tamanho do código.
 A busca é feita através de uma interface que verifica, antecipadamente, se o código sendo buscado é válido dentro do contexto da codificação.
 Se o código for válido, a busca na trie é feita recursivamente com base no código mandado no parâmetro da função.
-Se o nó retornado pela função recursiva não for nulo e possuir uma string, então a busca foi bem sucedida e a string no nó é mostrada é impressa na saída padrão. Caso contrário, na saída padrão é mostrado 'palavra nao encontrada'.
+Se o nó retornado pela função recursiva não for nulo e possuir uma string, então a busca foi bem sucedida e a string no nó é mostrada na saída padrão. Caso contrário, na saída padrão é mostrado o texto 'palavra nao encontrada'.
 
 ### Inserção | Complexidade: O(k), onde 'k' é o tamanho da chave.
 A inserção é feita avaliando cada caractere de uma chave a ser inserida, da esquerda para a direita.
@@ -26,7 +26,7 @@ Se, na chamada atual, todos os caracteres foram processados, existem três possi
 #### O nó atual é nulo
 Um novo nó é criado, a chave é inserida e então ele é retornado.
 
-#### O nó atual não é nulo mas não existe uma chave nele
+#### O nó atual não é nulo e não existe uma chave nele
 A chave é inserida no nó e então ele é retornado.
 
 #### O nó atual não é nulo e já existe uma chave nele
